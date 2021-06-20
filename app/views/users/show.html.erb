@@ -1,0 +1,41 @@
+<% if user_signed_in? %>
+　<% if current_user.id == @user.id %>
+　　<h1>マイページ</h1>
+　　　<p>名前 : <%= @user.name %></p>
+     <%= image_tag @user.image_url, size: "80×80" if @user.image? %>
+　　　<p>メールアドレス : <%= @user.email %></p>
+　　　<p>プロフィール : <%= @user.profile %></p>
+  　　<%= link_to "編集する", edit_user_registration_path %>
+　　<% else %>
+   <%= image_tag @user.image_url, size: "250x200" if @user.image? %>
+　　　<h1><%= @user.name %>のページ</h1>
+　　　<p>プロフィール : <%= @user.profile %></p>
+　　<% end %>
+<% else %>
+　<h1><%= @user.name %>のページ</h1>
+  <%= image_tag @user.image_url, size: "250x200" if @user.image? %>
+　<p>プロフィール : <%= @user.profile %></p>
+<% end %>
+
+
+<h2>ユーザーの投稿一覧</h2>
+<% @user.posts.each do |t| %>
+  <div>
+  <%= t.user.name %>
+  <%= t.word %>
+  <%= image_tag t.image_url, size: "250x200" if t.image? %>
+  </div>
+<% end %>
+
+<!-- 以下はいいね機能を実装している場合-->
+<h2>ユーザーがいいねした投稿一覧</h2>
+<% @user.liked_posts.each do |t| %>
+  <div>
+  <%= t.user.name %>
+  <%= t.word %>
+  <%= image_tag t.image_url, size: "250x200" if t.image? %>
+  </div>
+<% end %>
+<!-- ここまで-->
+
+<%= link_to "post一覧に戻る", posts_path %>

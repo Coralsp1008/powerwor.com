@@ -1,0 +1,101 @@
+<h1>Po笑erwor.com</h1>
+<h2>ー日常のコトバに潜む、みんなのPo笑erー</h2>
+
+<h3>投稿一覧</h3>
+<%= link_to "新規投稿へ", new_post_path %>
+<% if user_signed_in? %>
+<%= link_to "マイページへ", user_path(current_user.id) %>　
+<li><%= button_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+<% else %>
+<li><%= link_to "新規登録", new_user_registration_path %></li>
+<li><%= link_to "ログイン", new_user_session_path %></li>
+<% end %>
+
+<%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
+  <%= select_tag :tag_id,
+                 options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+                 {
+                   prompt: 'タグで絞り込み検索',
+                   onchange: 'submit(this.form);'
+                 }
+  %>
+<% end %>
+
+
+<br>
+<%= page_entries_info @posts %>
+
+<div class="posts-container">
+  
+<% @posts.each do |t| %>
+    <div class="post">
+    <% t.tags.each do |tag| %>
+      <%= tag.name %>
+    <% end %>      
+    <%= image_tag t.user.image_url, size: "30x30" if t.user.image? %>
+    <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
+    <%= t.word %>
+    <%= image_tag t.image_url, size: "250x200" if t.image? %>
+
+      <% if user_signed_in? %>
+      <% if current_user.already_liked?(t) %>
+          <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+            <i class="fas fa-grin-hearts"></i><%= t.likes.count %>
+          <% end %>
+      <% else %>
+          <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
+            <i class="far fa-grin-hearts"></i><%= t.likes.count %>
+            <% end %>
+        <% end %>   
+  <% else %>
+      <i class="far fa-grin-hearts"></i><%= t.likes.count %>
+  <% end %>
+  　<div>
+      <%= link_to "くわしく", post_path(t.id) %>
+      <% if user_signed_in? && current_user.id == t.user_id %>  
+    　<%= link_to "編集", edit_post_path(t.id) %>
+    　<%= button_to "削除", post_path(t.id), method: :delete %>
+    </div>
+  </div>
+  <% end %>
+</div>
+<% end %> 
+
+<%= paginate @posts %>
+
+<h3>人気投稿ランキング！</h3>
+
+<div>
+<% @rank_posts.each do |t| %>
+  <div class="post">
+  <%= image_tag t.user.image_url, size: "30x30" if t.user.image? %>
+  <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
+  <%= t.word %>
+  <%= image_tag t.image_url, size: "250x200" if t.image? %>
+
+    <% if user_signed_in? %>
+    <% if current_user.already_liked?(t) %>
+        <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+          <i class="fas fa-grin-hearts"></i><%= t.likes.count %>
+        <% end %>
+    <% else %>
+        <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
+          <i class="far fa-grin-hearts"></i><%= t.likes.count %>
+          <% end %>
+      <% end %>   
+<% else %>
+    <i class="far fa-grin-hearts"></i><%= t.likes.count %>
+<% end %>
+　<div>
+    <%= link_to "くわしく", post_path(t.id) %>
+    <% if user_signed_in? && current_user.id == t.user_id %>  
+  　<%= link_to "編集", edit_post_path(t.id) %>
+  　<%= button_to "削除", post_path(t.id), method: :delete %>
+  </div>
+</div>
+<% end %>
+</div>
+<% end %> 
+</div>
+
+<%= paginate @posts %>

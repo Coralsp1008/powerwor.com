@@ -1,0 +1,27 @@
+<%= form_for @post do |f| %>
+
+    <div>
+    <%= f.label :ワード %>
+    <%= f.text_area :word, :size => "50x2" %>
+    </div>
+
+    <div>
+    <%= f.label :By %>
+    <%= f.text_field :speaker, :size => 30 %>
+    </div>
+
+    <div>
+    <%= f.label :くわしく %>
+    <%= f.text_area :about, :size => "50x4" %>
+    </div>
+
+    <div>
+    <%= f.label :image（任意） %>
+    <%= f.file_field :image %>
+  　</div>
+
+    <div>
+    <%= f.submit "編集おわり" %>
+    </div>
+
+  <% end %>

@@ -1,0 +1,57 @@
+<h3>投稿詳細</h3>   <%= link_to "投稿一覧に戻る", posts_path %>
+
+<%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
+  <%= select_tag :tag_id,
+                 options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+                 {
+                   prompt: 'タグで絞り込み検索',
+                   onchange: 'submit(this.form);'
+                 }
+  %>
+<% end %>
+
+<div class="post">
+
+<% @post.tags.each do |tag| %>
+  <%= tag.name %>
+<% end %>
+　
+  <h5>ワード </h5> <p><%= @post.word %></p>
+
+  <h5>By </h5> <p><%= @post.speaker %></p>
+
+  <h5>くわしく </h5> <p><%= @post.about %></p>
+
+  <%= image_tag @post.image_url, size: "250x200" if @post.image? %>
+
+  <p><%= @post.created_at %></p>
+
+</div>
+
+<% if user_signed_in? %>
+<% if current_user.already_liked?(@post) %>
+    <%= link_to post_like_path(@post), method: :delete do %>
+      <i class="fas fa-grin-hearts"></i><%= @post.likes.count %>
+    <% end %>
+<% else %>
+    <%= link_to post_likes_path(@post), method: :post do %>
+      <i class="far fa-grin-hearts"></i><%= @post.likes.count %>
+    <% end %>
+<% end %>
+<% else %>
+<i class="far fa-grin-hearts"></i><%= @post.likes.count %>
+<% end %>
+
+
+</div>
+
+<h2>イイネしたユーザー</h2>
+<% @post.liked_users.each do |user| %>
+  <li><%= image_tag user.image_url, size: "30x30" if user.image? %><%= user.name %></li>
+<% end %>
+
+<% if user_signed_in? && current_user.id == @post.user_id %>  
+<%= link_to "編集", edit_post_path(@post.id) %>
+<%= button_to "削除", post_path(@post.id), method: :delete %>
+<% end %>
+

@@ -1,0 +1,40 @@
+<h3>新規投稿</h3>
+
+<%= form_for @post do |f| %>
+
+  <div class="field">
+  <%= f.label :ワード %>
+  <%= f.text_area :word, :size => "50x2" %>
+  </div>
+
+  <div class="field">
+  <%= f.label :By %>
+  <%= f.text_field :speaker, :size => 30 %>
+  </div>
+
+  <div class="field">
+  <%= f.label :くわしく %>
+  <%= f.text_area :about, :size => "50x4" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image（任意） %>
+    <%= f.file_field :image %>
+  </div>
+
+  <div class="check_box">
+  <span>タグ</span>
+  <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+   <div>
+     <%= tag.label do %>
+     <%= tag.check_box %>
+     <%= tag.text %>
+     <% end %>
+   </div>
+ <% end %>
+</div>
+  
+  <%= f.submit "投稿!" %>
+<% end %>
+
+<%= link_to "一覧に戻る", posts_path %>
