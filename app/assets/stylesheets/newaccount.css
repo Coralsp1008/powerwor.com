@@ -1,0 +1,17 @@
+
+.newacctitle {
+    text-align: center;
+    color: #ee4300;
+}
+
+.newaccount {
+    box-shadow: 10px 10px 0px 0 #ee4300;
+    border: solid #ee4300;
+    color: #501801;
+    margin: 5%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-decoration: none;
+}

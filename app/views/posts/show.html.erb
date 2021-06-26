@@ -1,57 +1,78 @@
-<h3>投稿詳細</h3>   <%= link_to "投稿一覧に戻る", posts_path %>
+<%= stylesheet_link_tag 'show', :media => "all" %>
+<br>
+<br>
+<h1>＼POST 詳細／</h1> 
 
-<%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
-  <%= select_tag :tag_id,
-                 options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
-                 {
-                   prompt: 'タグで絞り込み検索',
-                   onchange: 'submit(this.form);'
-                 }
-  %>
-<% end %>
+<div class="showpage">
 
-<div class="post">
+<div class="show-container">
+
+<div class="postshow">
 
 <% @post.tags.each do |tag| %>
-  <%= tag.name %>
-<% end %>
+  <h5>CATEGORY</h5><%= tag.name %>
+<% end %> <br>
 　
-  <h5>ワード </h5> <p><%= @post.word %></p>
+  <h5>WORD </h5> <p><%= @post.word %></p>
 
-  <h5>By </h5> <p><%= @post.speaker %></p>
+  <br>
+  <h5>BY </h5> <p><%= @post.speaker %></p>
 
-  <h5>くわしく </h5> <p><%= @post.about %></p>
+  <br>
+  <h5>DETAIL </h5> <p><%= @post.about %></p>
 
+  <br>
   <%= image_tag @post.image_url, size: "250x200" if @post.image? %>
-
   <p><%= @post.created_at %></p>
 
 </div>
 
+<div class="button">
+
+
 <% if user_signed_in? %>
 <% if current_user.already_liked?(@post) %>
     <%= link_to post_like_path(@post), method: :delete do %>
-      <i class="fas fa-grin-hearts"></i><%= @post.likes.count %>
+      <div class="icon">
+      <i class="fas fa-grin-stars fa-lg"></i><%= @post.likes.count %></div>
     <% end %>
 <% else %>
     <%= link_to post_likes_path(@post), method: :post do %>
-      <i class="far fa-grin-hearts"></i><%= @post.likes.count %>
+      <div class="icon">
+      <i class="far fa-meh-blank fa-lg"></i><%= @post.likes.count %></div>
     <% end %>
 <% end %>
 <% else %>
-<i class="far fa-grin-hearts"></i><%= @post.likes.count %>
+<div class="icon">
+<i class="fas fa-grin-stars fa-lg"></i><%= @post.likes.count %></div>
 <% end %>
 
+
+<% if user_signed_in? && current_user.id == @post.user_id %>  
+<%= link_to edit_post_path(@post.id) do %>
+  <div class="icon">
+      <i class="fas fa-pencil-alt fa-lg"></i></div>
+      <% end %>
+
+<%= link_to post_path(@post.id), method: :delete do %>
+  <div class="icon">
+      <i class="fas fa-trash-alt fa-lg"></i></div>
+      <% end %>
+<% end %>
 
 </div>
 
-<h2>イイネしたユーザー</h2>
+<br>
+<div class="useriine">
+
+<h2>イイねしたユーザー</h2>
+
 <% @post.liked_users.each do |user| %>
   <li><%= image_tag user.image_url, size: "30x30" if user.image? %><%= user.name %></li>
 <% end %>
+</div>
+</div>
 
-<% if user_signed_in? && current_user.id == @post.user_id %>  
-<%= link_to "編集", edit_post_path(@post.id) %>
-<%= button_to "削除", post_path(@post.id), method: :delete %>
-<% end %>
+</div>
 
+<%= link_to "TOPに戻る", posts_path %>

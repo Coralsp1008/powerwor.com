@@ -1,8 +1,12 @@
-<h2>Sign up</h2>
 
+<br>
+<br>
+<div class="newacctitle">
+<h1>新規アカウント作成</h1></div>
+
+<div class="newaccount">
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "users/shared/error_messages", resource: resource %>
-
 
   <div class="field">
     <%= f.label :name %><br />
@@ -14,11 +18,14 @@
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
+  <br>
   <div class="field">
     <%= f.label :プロフィール画像 %>
+
     <%= f.file_field :image %>
   </div>
 
+  <br>
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
@@ -32,9 +39,13 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
+  <br>
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "SIGN UP!" %>
   </div>
 <% end %>
 
+
 <%= render "users/shared/links" %>
+
+</div>

@@ -1,0 +1,48 @@
+
+.showpage {
+    display:flex;
+    justify-content: center;   
+}
+
+.show-container {
+    width: 60%;
+    box-shadow: 10px 10px 0px 0 #ee4300;
+    border: solid #ee4300;
+    color: #501801;
+    margin: 10px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; 
+}
+
+.button {
+    display:flex;
+    justify-content: space-evenly;
+}
+
+.postshow {
+    margin: 10px auto;
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.show-container img {
+    text-decoration: none;
+    border-radius: 23%;
+}
+
+.useriine {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.useriine li {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.useriine h2 {
+    text-align: center;
+}

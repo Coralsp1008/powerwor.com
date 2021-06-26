@@ -1,29 +1,14 @@
-<h3>新規投稿</h3>
+<%= stylesheet_link_tag 'new', :media => "all" %>
+<br>
+<br>
+<h1>＼NEW POST／</h1>
 
+<br>
 <%= form_for @post do |f| %>
 
-  <div class="field">
-  <%= f.label :ワード %>
-  <%= f.text_area :word, :size => "50x2" %>
-  </div>
-
-  <div class="field">
-  <%= f.label :By %>
-  <%= f.text_field :speaker, :size => 30 %>
-  </div>
-
-  <div class="field">
-  <%= f.label :くわしく %>
-  <%= f.text_area :about, :size => "50x4" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :image（任意） %>
-    <%= f.file_field :image %>
-  </div>
-
   <div class="check_box">
-  <span>タグ</span>
+  <%= f.label "CATEGORY" %>
+  <br>
   <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
    <div>
      <%= tag.label do %>
@@ -33,8 +18,39 @@
    </div>
  <% end %>
 </div>
-  
-  <%= f.submit "投稿!" %>
+
+  <br>
+  <div class="field">
+  <%= f.label :word, "WORDs 投稿するコトバ・話" %>
+  <br>
+  <%= f.text_area :word, :size => "50x2" %>
+  </div>
+
+  <br>
+  <div class="field">
+  <%= f.label :speaker, "BY 誰の発言？" %>
+  <br>
+  <%= f.text_field :speaker, :size => 30 %>
+  </div>
+
+  <br>
+  <div class="field">
+  <%= f.label :about, "DITAIL そのコトバ・話の詳細、発言の背景など！" %>
+  <br>
+  <%= f.text_area :about, :size => "50x4" %>
+  </div>
+
+  <br>
+  <div class="field">
+    <%= f.label :image, "IMAGE（任意）" %>
+    <%= f.file_field :image %>
+  </div>
+
+  <br>
+  <%= f.submit "POST!" %>
 <% end %>
 
-<%= link_to "一覧に戻る", posts_path %>
+<div class="toppage">
+<%= link_to "TOPに戻る", posts_path %></div>
+
+

@@ -1,41 +1,171 @@
+<%= stylesheet_link_tag 'mypage-show', :media => "all" %>
+
+<div class="mypage">
+
 <% if user_signed_in? %>
 　<% if current_user.id == @user.id %>
-　　<h1>マイページ</h1>
-　　　<p>名前 : <%= @user.name %></p>
-     <%= image_tag @user.image_url, size: "80×80" if @user.image? %>
-　　　<p>メールアドレス : <%= @user.email %></p>
-　　　<p>プロフィール : <%= @user.profile %></p>
-  　　<%= link_to "編集する", edit_user_registration_path %>
-　　<% else %>
-   <%= image_tag @user.image_url, size: "250x200" if @user.image? %>
-　　　<h1><%= @user.name %>のページ</h1>
-　　　<p>プロフィール : <%= @user.profile %></p>
-　　<% end %>
+  
+  <br>
+　　<br>
+　　<h1>＼ MY PAGE ／</h1>
+　<% else %>
+  <br>
+  <br>
+   <h1><%= @user.name %>のPAGE</h1>
+  <% end %>
 <% else %>
-　<h1><%= @user.name %>のページ</h1>
+<br>
+<br>
+<h1><%= @user.name %>のPAGE</h1>
+<% end %>
+
+
+<br>
+<div class="Prof-container">
+
+<% if user_signed_in? %>
+　<% if current_user.id == @user.id %>
+
+　　<%= image_tag @user.image_url, size: "50×50" if @user.image? %>
+　　　　<div class="aboutmed">
+　　　　　　<p>NAME : <%= @user.name %></p>
+　　　　　　<p>MAIL ADRESS : <%= @user.email %></p>
+　　　　　　<p>PROFILE : <%= @user.profile %></p>
+　　　　　<br>
+　　　　　<%= link_to "MY PAGEを編集する", edit_user_registration_path %></div>
+
+  <% else %>
+
+   <%= image_tag @user.image_url, size: "50x50" if @user.image? %>
+
+   <div class="aboutmed">
+     <p>NAME : <%= @user.name %></p>
+     <p>PROFILE : <%= @user.profile %></p>
+   </div>
+ <% end %>
+
+<% else %>
+
   <%= image_tag @user.image_url, size: "250x200" if @user.image? %>
-　<p>プロフィール : <%= @user.profile %></p>
+  <div class="aboutmed">
+  <p>NAME : <%= @user.name %></p>
+　<p>PROFILE : <%= @user.profile %></p>
+  </div>
+
 <% end %>
 
-
-<h2>ユーザーの投稿一覧</h2>
+<div class="other">
+<br>
+<h2><%= @user.name %>のPOST</h2>
+<br>
 <% @user.posts.each do |t| %>
-  <div>
-  <%= t.user.name %>
-  <%= t.word %>
-  <%= image_tag t.image_url, size: "250x200" if t.image? %>
+  <div class="upost"> 
+  <div class="umain-box"> 
+    <div class="uright-container">
+    <div class="uusername" >
+    <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><p><%= t.created_at.strftime('%Y/%m/%d') %></p>
+    </div>
+    <%= t.word %>
+    <br>
+    <%= image_tag t.image_url, size: "250x200" if t.image? %>
+
+ <div class="ubottom-container">
+    <% if user_signed_in? %>
+　     <% if current_user.already_liked?(t) %>
+        
+ 　     <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+          <div class="icon">
+          <i class="fas fa-grin-stars fa-lg"></i><%= t.likes.count %></div>
+          <% end %>    
+     <% else %>
+          <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
+          <div class="icon">
+          <i class="far fa-meh-blank fa-lg"></i><%= t.likes.count %></div>
+          <% end %>         
+       <% end %>   
+   <% else %>
+   <%= link_to new_user_registration_path do %> 
+        <div class="icon">
+        <i class="fas fa-grin-stars fa-lg"></i><%= t.likes.count %></div>
+        <% end %>
+        <% end %>
+ 
+     <%= link_to post_path(t.id) do %>
+       <div class="icon">
+       <i class="fas fa-info-circle fa-lg"></i></div>
+       <% end %>
+    <% if user_signed_in? && current_user.id == t.user_id %>
+      <%= link_to edit_post_path(t.id) do %>
+      <div class="icon">
+      <i class="fas fa-pencil-alt fa-lg"></i></div>
+      <% end %>
+      <%= link_to post_path(t.id), method: :delete do %>
+      <div class="icon">
+      <i class="fas fa-trash-alt fa-lg"></i></div>
+      <% end %>
+     <% end %>
+   </div>
+  </div>
   </div>
 <% end %>
 
-<!-- 以下はいいね機能を実装している場合-->
-<h2>ユーザーがいいねした投稿一覧</h2>
+<br>
+
+<h2><%= @user.name %>がイイねしたPOST一覧</h2>
 <% @user.liked_posts.each do |t| %>
-  <div>
-  <%= t.user.name %>
-  <%= t.word %>
-  <%= image_tag t.image_url, size: "250x200" if t.image? %>
+  <div class="upost"> 
+  <div class="umain-box"> 
+    <div class="uright-container">
+    <div class="uusername" >
+    <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><p><%= t.created_at.strftime('%Y/%m/%d') %></p>
+    </div>
+    <%= t.word %>
+    <br>
+    <%= image_tag t.image_url, size: "250x200" if t.image? %>
+
+ <div class="ubottom-container">
+    <% if user_signed_in? %>
+　     <% if current_user.already_liked?(t) %>
+        
+ 　     <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+          <div class="uicon">
+          <i class="fas fa-grin-stars fa-lg"></i><%= t.likes.count %></div>
+          <% end %>    
+     <% else %>
+          <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
+          <div class="uicon">
+          <i class="far fa-meh-blank fa-lg"></i><%= t.likes.count %></div>
+          <% end %>         
+       <% end %>   
+   <% else %>
+   <%= link_to new_user_registration_path do %> 
+        <div class="uicon">
+        <i class="fas fa-grin-stars fa-lg"></i><%= t.likes.count %></div>
+        <% end %>
+        <% end %>
+ 
+     <%= link_to post_path(t.id) do %>
+       <div class="uicon">
+       <i class="fas fa-info-circle fa-lg"></i></div>
+       <% end %>
+    <% if user_signed_in? && current_user.id == t.user_id %>
+      <%= link_to edit_post_path(t.id) do %>
+      <div class="uicon">
+      <i class="fas fa-pencil-alt fa-lg"></i></div>
+      <% end %>
+      <%= link_to post_path(t.id), method: :delete do %>
+      <div class="uicon">
+      <i class="fas fa-trash-alt fa-lg"></i></div>
+      <% end %>
+     <% end %>
+   </div>
+  </div>
   </div>
 <% end %>
-<!-- ここまで-->
 
-<%= link_to "post一覧に戻る", posts_path %>
+</div>
+</div>
+
+<%= link_to "TOPに戻る", posts_path %>
+
+</div>

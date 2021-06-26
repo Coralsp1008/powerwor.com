@@ -1,0 +1,147 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.posts-container {
+    width: 75%;
+    margin: 10px auto;
+    color: #501801;
+
+  }
+
+  .main-box {
+    box-shadow: 10px 10px 0px 0 #ee4300;
+    border: solid #ee4300;
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+  }
+
+  .username  {
+    display: flex;
+    align-items: baseline;
+  }
+  .username a {
+    text-decoration: none;
+    font-size: 75%;
+    font-weight: bold;
+    color: #501801;
+  }
+
+   .username p {
+     margin-left: 5px;
+    font-size: 55%;
+    color: #5017019c;
+  }
+
+  .about-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+
+  .about-title { 
+    width: 100%;
+    text-align: center;
+  }
+
+   .about-title a {
+    font-size: 500%;
+    font-weight: bolder;  
+    text-shadow: 5px 5px 3px #ffe608cc;
+    color: #ee4300;
+
+  }
+
+  .intro {
+    color: #501801;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;  
+  }
+
+  .intro h2{
+    color: #ee4300;
+    font-weight: bold;
+  }
+
+
+  .intro a {
+    color: #ee4300;
+  }
+
+　.about-content p {
+  width: 100%;
+}
+
+  .left-container{
+    margin-top: 13px;
+    margin-left: 13px;
+    margin-bottom: 13px;
+    margin-right: 5px;
+    display: flex;
+    align-items: flex-start;
+
+  }
+
+  .left-container img {
+    border-radius: 23%;  /* 角丸半径を50%にする(=円形にする) */
+  }
+
+ 
+
+  .right-container {
+    margin-top: 13px;
+    margin-bottom: 5px;
+    width: 100%;
+  }
+
+  .right-container img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .bottom-container {
+    display: flex;
+    justify-content: space-evenly;
+    
+  }
+
+  .bottom-container a {
+    text-decoration: none;
+      font-weight: bold;
+  }
+
+  .icon {
+    text-decoration: none;
+    color: #ee4300;
+  }
+
+  .icon :hover{
+   color: #ffe608;
+  }
+ 
+ 
+
+  .post-container h2 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+  }
+
+  
+
+  .post {
+    margin-top: 10px;
+    padding-top: 20px;
+  }
+  
+  
+ 

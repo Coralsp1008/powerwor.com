@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PowerworCom</title>
+    <title>Po笑erwor.com</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,45 @@
   </head>
 
   <body>
+  <header>
+      
+      <div class="header-title">
+      <%= link_to posts_path do %>
+        <h1>Po笑erwor.com</h1>
+      <p>日常のコトバに潜む、みんなのPo笑er</p>
+      <% end %>
+      </div>  
+
+  <ul>
+    <br>
+<li><%= link_to "NEW POST", new_post_path %></li>    
+
+  <% if user_signed_in? %>
+
+     <li><%= link_to " MY PAGE", user_path(current_user.id) %></li>　
+ 
+     <li><%= link_to "LOG OUT", destroy_user_session_path, method: :delete %></li>
+　<% else %>
+     
+　　 <li><%= link_to "LOGIN", new_user_session_path %></li>
+
+　　 <li><%= link_to "アカウント作成", new_user_registration_path %></li>
+  <% end %>
+      </ul>
+      </header>
+   
+    <main>
     <%= yield %>
+    </main>
+    
+    <br>
+
+    <footer>
+    <small>© 2021 Koharu Okada</small>
+ </footer>
+
+
   </body>
+
+
 </html>

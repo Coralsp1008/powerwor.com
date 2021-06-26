@@ -1,0 +1,55 @@
+* {
+    padding: 0;
+    margin: 0;
+  }
+  
+.edit_post {
+    width: 80%;
+    box-shadow: 10px 10px 0px 0 #ee4300;
+    border: solid #ee4300;
+    margin: 10px auto;
+    padding: 20px;
+    color: #501801; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+ .toppage {
+     padding: 10px;
+     font-weight: bold;
+     font-size: 120%;
+     text-align: center;
+
+ }
+
+ .toppage a {
+    text-decoration: none;
+    color: #501801;
+ }
+
+ .toppage a:hover {
+    color: #ffe608;
+ }
+
+
+label {
+    font-weight: bold;
+    
+}
+
+h1 {
+    margin-top: 5px;
+    text-align: center;
+    color: #ee4300;
+}
+
+.submit {
+    size: 50%;
+}
+
+.field {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}

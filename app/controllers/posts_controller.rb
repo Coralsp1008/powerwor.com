@@ -3,17 +3,15 @@ class PostsController < ApplicationController
     before_action :authenticate_user!, only: [:new, :create]
 
     def index
-      if params[:search] == nil
+      if params[:tag_id] == nil
         @posts = Post.all.page(params[:page]).per(10)
         @rank_posts = Post.all.sort {|a,b| b.liked_users.count <=> a.liked_users.count}.first(10)
-      elsif params[:search] == ''
-        @posts = Post.all.page(params[:page]).per(10)
-        @rank_posts = Post.all.sort {|a,b| b.liked_users.count <=> a.liked_users.count}.first(10)
-      else  
-        @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.all
+     else  
+        @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts.page(params[:page]).per(10) : Post.all.page(params[:page]).per(10)
+        @rank_posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts.page(params[:page]).per(10) : Post.all.sort {|a,b| b.liked_users.count <=> a.liked_users.count}.first(10)
       end
     end
-  
+
     def new
       @post = Post.new
     end

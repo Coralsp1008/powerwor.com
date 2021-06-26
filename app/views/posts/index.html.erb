@@ -1,101 +1,179 @@
-<h1>Po笑erwor.com</h1>
-<h2>ー日常のコトバに潜む、みんなのPo笑erー</h2>
+<%= stylesheet_link_tag 'index', :media => "all" %>
 
-<h3>投稿一覧</h3>
-<%= link_to "新規投稿へ", new_post_path %>
-<% if user_signed_in? %>
-<%= link_to "マイページへ", user_path(current_user.id) %>　
-<li><%= button_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-<% else %>
-<li><%= link_to "新規登録", new_user_registration_path %></li>
-<li><%= link_to "ログイン", new_user_session_path %></li>
-<% end %>
+<div class="about-container">
 
+<div class="about-title">
+<br>
+<br>
+<br>
+<a> LET'S </a>
+<a>SHARE </a>
+<a>YOUR </a>
+<a>"Po笑er"!</a>
+</div>
+
+<div class="intro">
+
+<br>
+<p>みんなの日常の中で生まれる、たくさんのチカラを持ったコトバ</p>
+<br>
+<p><h2>”Po笑er word”</h2></p>
+
+<br>
+<p>思わずクスッと笑顔になるような、ちょっぴり勇気をくれるような。</p>
+
+<p>そんなコトバ達をこの <a>Po笑erwor.com</a> で</p>
+
+<p>みんなとシェアしよう。</p>
+
+<br>
+<p>キミがもし、</p>
+<p>笑顔になれないとき、誰かから元気を分けて欲しいとき。</p>
+<br>
+<p>この場所で、たくさんの <a>”Po笑er word"</a> がキミを待ってるよ。</p>
+
+
+</div>
+</div>
+ 
+
+<div class="posts-container">
+
+<br>
+<br>
+<br>
+<h1>＼ POST一覧 ／</h1>
+
+<br>
 <%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
+  <%= tag.label "CATEGORY" %>
   <%= select_tag :tag_id,
                  options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
                  {
-                   prompt: 'タグで絞り込み検索',
+                   prompt: 'ALL',
                    onchange: 'submit(this.form);'
                  }
   %>
-<% end %>
+<% end %>  
+<br>
+<%= page_entries_info @posts %>
 
+<% @posts.each do |t| %>
+  <div class="post"> 
+  <div class="main-box"> 
+  <div class="left-container">
+  <a href="/users/<%= t.user.id %>"><%= image_tag t.user.image_url, size: "50x50" if t.user.image? %></a>
+  </div>
+    <div class="right-container">
+    <div class="username" >
+    <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><p><%= t.created_at.strftime('%Y/%m/%d') %></p>
+    </div>
+    <%= t.word %>
+    <br>
+    <%= image_tag t.image_url, size: "250x200" if t.image? %>
+
+ <div class="bottom-container">
+    <% if user_signed_in? %>
+　     <% if current_user.already_liked?(t) %>
+        
+ 　     <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+          <div class="icon">
+          <i class="fas fa-grin-stars fa-lg"></i><%= t.likes.count %></div>
+          <% end %>    
+     <% else %>
+          <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
+          <div class="icon">
+          <i class="far fa-meh-blank fa-lg"></i><%= t.likes.count %></div>
+          <% end %>         
+       <% end %>   
+   <% else %>
+   <%= link_to new_user_registration_path do %> 
+        <div class="icon">
+        <i class="fas fa-grin-stars fa-lg"></i><%= t.likes.count %></div>
+        <% end %>
+        <% end %>
+ 
+     <%= link_to post_path(t.id) do %>
+       <div class="icon">
+       <i class="fas fa-info-circle fa-lg"></i></div>
+       <% end %>
+    <% if user_signed_in? && current_user.id == t.user_id %>
+      <%= link_to edit_post_path(t.id) do %>
+      <div class="icon">
+      <i class="fas fa-pencil-alt fa-lg"></i></div>
+      <% end %>
+      <%= link_to post_path(t.id), method: :delete do %>
+      <div class="icon">
+      <i class="fas fa-trash-alt fa-lg"></i></div>
+      <% end %>
+     <% end %>
+   </div>
+  </div>
+  </div>
+<% end %>
+<%= paginate @posts %>
+
+<br>
+<br>
+<br>
+<h1>＼ 人気のPOST ／</h1>
 
 <br>
 <%= page_entries_info @posts %>
 
-<div class="posts-container">
-  
-<% @posts.each do |t| %>
-    <div class="post">
-    <% t.tags.each do |tag| %>
-      <%= tag.name %>
-    <% end %>      
-    <%= image_tag t.user.image_url, size: "30x30" if t.user.image? %>
-    <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
-    <%= t.word %>
-    <%= image_tag t.image_url, size: "250x200" if t.image? %>
-
-      <% if user_signed_in? %>
-      <% if current_user.already_liked?(t) %>
-          <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
-            <i class="fas fa-grin-hearts"></i><%= t.likes.count %>
-          <% end %>
-      <% else %>
-          <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
-            <i class="far fa-grin-hearts"></i><%= t.likes.count %>
-            <% end %>
-        <% end %>   
-  <% else %>
-      <i class="far fa-grin-hearts"></i><%= t.likes.count %>
-  <% end %>
-  　<div>
-      <%= link_to "くわしく", post_path(t.id) %>
-      <% if user_signed_in? && current_user.id == t.user_id %>  
-    　<%= link_to "編集", edit_post_path(t.id) %>
-    　<%= button_to "削除", post_path(t.id), method: :delete %>
+  <% @rank_posts.each do |t| %>
+    <div class="post"> 
+    <div class="main-box"> 
+    <div class="left-container">
+    <a href="/users/<%= t.user.id %>"><%= image_tag t.user.image_url, size: "50x50" if t.user.image? %></a>
     </div>
-  </div>
-  <% end %>
-</div>
-<% end %> 
-
-<%= paginate @posts %>
-
-<h3>人気投稿ランキング！</h3>
-
-<div>
-<% @rank_posts.each do |t| %>
-  <div class="post">
-  <%= image_tag t.user.image_url, size: "30x30" if t.user.image? %>
-  <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
-  <%= t.word %>
-  <%= image_tag t.image_url, size: "250x200" if t.image? %>
-
-    <% if user_signed_in? %>
-    <% if current_user.already_liked?(t) %>
-        <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
-          <i class="fas fa-grin-hearts"></i><%= t.likes.count %>
-        <% end %>
-    <% else %>
-        <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
-          <i class="far fa-grin-hearts"></i><%= t.likes.count %>
+      <div class="right-container">
+      <div class="username" >
+      <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><p><%= t.created_at.strftime('%Y/%m/%d') %></p>
+      </div>
+      <%= t.word %>
+      <br>
+      <%= image_tag t.image_url, size: "250x200" if t.image? %>
+  
+   <div class="bottom-container">
+      <% if user_signed_in? %>
+  　     <% if current_user.already_liked?(t) %>
+          
+   　     <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+            <div class="icon">
+            <i class="fas fa-grin-stars fa-lg"></i><%= t.likes.count %></div>
+            <% end %>    
+       <% else %>
+            <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
+            <div class="icon">
+            <i class="far fa-meh-blank fa-lg"></i><%= t.likes.count %></div>
+            <% end %>         
+         <% end %>   
+     <% else %>
+          <%= link_to new_user_registration_path do %> 
+          <div class="icon">
+          <i class="fas fa-grin-stars fa-lg"></i><%= t.likes.count %></div>
           <% end %>
-      <% end %>   
-<% else %>
-    <i class="far fa-grin-hearts"></i><%= t.likes.count %>
-<% end %>
-　<div>
-    <%= link_to "くわしく", post_path(t.id) %>
-    <% if user_signed_in? && current_user.id == t.user_id %>  
-  　<%= link_to "編集", edit_post_path(t.id) %>
-  　<%= button_to "削除", post_path(t.id), method: :delete %>
-  </div>
+          <% end %>
+       <%= link_to post_path(t.id) do %>
+         <div class="icon">
+         <i class="fas fa-info-circle fa-lg"></i></div>
+         <% end %>
+      <% if user_signed_in? && current_user.id == t.user_id %>
+        <%= link_to edit_post_path(t.id) do %>
+        <div class="icon">
+        <i class="fas fa-pencil-alt fa-lg"></i></div>
+        <% end %>
+        <%= link_to post_path(t.id), method: :delete do %>
+        <div class="icon">
+        <i class="fas fa-trash-alt fa-lg"></i></div>
+        <% end %>
+       <% end %>
+     </div>
+    </div>
+    </div>
+  <% end %>
+<%= paginate @posts %>
 </div>
-<% end %>
-</div>
-<% end %> 
 </div>
 
-<%= paginate @posts %>
