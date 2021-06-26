@@ -9,8 +9,9 @@
 
 <div class="postshow">
 
+<h5>CATEGORY</h5>
 <% @post.tags.each do |tag| %>
-  <h5>CATEGORY</h5><%= tag.name %>
+<%= tag.name %>
 <% end %> <br>
 　
   <h5>WORD </h5> <p><%= @post.word %></p>
