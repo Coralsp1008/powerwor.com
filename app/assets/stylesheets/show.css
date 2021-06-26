@@ -1,7 +1,7 @@
 
 .showpage {
     display:flex;
-    justify-content: center;   
+    justify-content: center;  
 }
 
 .show-container {
@@ -13,11 +13,18 @@
     padding: 20px;
     display: flex;
     flex-direction: column; 
+    
 }
 
 .button {
     display:flex;
     justify-content: space-evenly;
+    text-decoration: none; 
+}
+
+.button a {
+    text-decoration: none; 
+    font-weight: bold;
 }
 
 .postshow {
