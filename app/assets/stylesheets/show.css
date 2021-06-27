@@ -2,6 +2,7 @@
 .showpage {
     display:flex;
     justify-content: center;  
+    flex-wrap: wrap;
 }
 
 .show-container {
@@ -34,7 +35,11 @@
     flex-direction: column;
 }
 
-.show-container img {
+.postshow img {
+    border-radius: 0%;
+}
+
+.useriine img {
     text-decoration: none;
     border-radius: 23%;
 }
@@ -52,4 +57,20 @@
 }
 .useriine h2 {
     text-align: center;
+}
+
+
+.TOTHETOP {
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+}   
+
+.TOTHETOP a {
+    text-decoration: none;
+    color: #ee4300;
+}
+
+.TOTHETOP a:hover {
+    color: #ffe608;
 }
