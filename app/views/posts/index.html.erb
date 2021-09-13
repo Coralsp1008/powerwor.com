@@ -72,13 +72,13 @@
     <br>
     <%= image_tag t.image_url, size: "250x200" if t.image? %>
 
- <div class="bottom-container">
+<div class="bottom-container">
     <% if user_signed_in? %>
 　     <% if current_user.already_liked?(t) %>
         
  　     <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
           <div class="icon">
-          <i class="fas fa-grin-stars fa-lg"></i><%= t.likes.count %></div>
+            <i class="fas fa-grin-stars fa-lg"></i><%= t.likes.count %></div>
           <% end %>    
      <% else %>
           <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
@@ -99,12 +99,12 @@
        <% end %>
     <% if user_signed_in? && current_user.id == t.user_id %>
       <%= link_to edit_post_path(t.id) do %>
-      <div class="icon">
-      <i class="fas fa-pencil-alt fa-lg"></i></div>
-      <% end %>
-      <%= link_to post_path(t.id), method: :delete do %>
-      <div class="icon">
-      <i class="fas fa-trash-alt fa-lg"></i></div>
+        <div class="icon">
+        <i class="fas fa-pencil-alt fa-lg"></i></div>
+        <% end %>
+        <%= link_to post_path(t.id), method: :delete do %>
+        <div class="icon">
+        <i class="fas fa-trash-alt fa-lg"></i></div>
       <% end %>
      <% end %>
    </div>
