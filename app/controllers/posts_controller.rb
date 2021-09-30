@@ -4,11 +4,11 @@ class PostsController < ApplicationController
 
     def index
       if params[:tag_id] == nil
-        @posts = Post.all.page(params[:page]).per(10)
-        @rank_posts = Post.all.sort {|a,b| b.liked_users.count <=> a.liked_users.count}.first(10)
+        @posts = Post.all.page(params[:page]).per(5)
+        @rank_posts = Post.all.sort {|a,b| b.liked_users.count <=> a.liked_users.count}.first(5)
      else  
-        @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts.page(params[:page]).per(10) : Post.all.page(params[:page]).per(10)
-        @rank_posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts.page(params[:page]).per(10) : Post.all.sort {|a,b| b.liked_users.count <=> a.liked_users.count}.first(10)
+        @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts.page(params[:page]).per(5) : Post.all.page(params[:page]).per(5)
+        @rank_posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts.page(params[:page]).per(5) : Post.all.sort {|a,b| b.liked_users.count <=> a.liked_users.count}.first(5)
       end
     end
 

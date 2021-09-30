@@ -10,13 +10,13 @@
   <%= f.label "CATEGORY" %>
   <br>
   <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-   <div>
-     <%= tag.label do %>
-     <%= tag.check_box %>
-     <%= tag.text %>
-     <% end %>
-   </div>
- <% end %>
+    <div>
+      <%= tag.label do %>
+      <%= tag.check_box %>
+      <%= tag.text %>
+      <% end %>
+    </div>
+    <% end %>
 </div>
 
   <br>
@@ -38,12 +38,6 @@
   <%= f.label :about, "DITAIL そのコトバ・話の詳細、発言の背景など！" %>
   <br>
   <%= f.text_area :about, :size => "50x4" %>
-  </div>
-
-  <br>
-  <div class="field">
-    <%= f.label :image, "IMAGE（任意）" %>
-    <%= f.file_field :image %>
   </div>
 
   <br>

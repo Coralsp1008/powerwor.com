@@ -1,43 +1,44 @@
 <!DOCTYPE html>
+
+<%= stylesheet_link_tag 'application', :media => "all" %>
+
 <html>
   <head>
     <title>Po笑erwor.com</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
   <header>
       
-      <div class="header-title">
       <%= link_to posts_path do %>
-        <h1>Po笑erwor.com</h1>
-      <p>日常のコトバに潜む、みんなのPo笑er</p>
+        <h1>POwww.com</h1>
+      <p>日常のコトバに潜む、みんなのpowww。</p>
       <% end %>
-      </div>  
+      
 
-  <ul>
-  
-<li><%= link_to "NEW POST", new_post_path %></li>    
-
-  <% if user_signed_in? %>
-
-     <li><%= link_to " MY PAGE", user_path(current_user.id) %></li>　
- 
-     <li><%= link_to "LOG OUT", destroy_user_session_path, method: :delete %></li>
-　<% else %>
-     
-　　 <li><%= link_to "LOGIN", new_user_session_path %></li>
-
-　　 <li><%= link_to "アカウント作成", new_user_registration_path %></li>
-  <% end %>
+      <div id="hamburg">
+      <input id="input" type="checkbox">
+      <label id="label1" for="input"><div class="line1"></div><div class="line2"></div><div class="line3"></div></label> 
+    <div id="content"> 
+      <ul class="list">
+        <li><a href="/posts/new">NEW POST</a></li>
+        </li>
+        <% if user_signed_in? %>
+          <li><%= link_to " MY PAGE", user_path(current_user.id) %></li>
+          <li><%= link_to "LOG OUT", destroy_user_session_path, method: :delete %></li>
+          </li>
+        <% else %>
+          <li><%= link_to "LOGIN", new_user_session_path %></li>
+          <li><%= link_to "アカウント作成", new_user_registration_path %></li>
+        <% end %> 
       </ul>
-      </header>
-   
+    </div>
+  </div>
+</header>
+
     <main>
     <%= yield %>
     </main>

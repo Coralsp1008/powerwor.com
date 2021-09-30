@@ -20,27 +20,23 @@
   }
 
   body {
-    font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ",
-      Meiryo, "ＭＳ Ｐゴシック", "sans-serif", "Comic Sans MS";
+    font-family: "ヒラギノ丸ゴ ProN";
   }
 
   header {
     background-color: #ee4300;
     box-shadow: 0 10px 25px 0 rgba(65, 24, 0, 0.5);
     width: 100%;
-    height: 150px;
-    font-weight: bold;
+    height: 90px;
     position: fixed;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   header a {
     color: white; 
     text-decoration: none; 
   }
-
- 
 
   .header-title {
     margin: 10px;
@@ -49,36 +45,40 @@
     align-items: flex-end;
   }
 
-    
-
-  header h1 {
-    color: white;
-    margin-left: 20px;
-  }
   header p {
+    font-family: "ヒラギノ丸ゴ ProN";
     font-size: 80%;
     color: white;
     margin-left: 20px;
-  }
+}
 
+  header h1 {
+    font-weight: bold;
+    font-family: "ヒラギノ丸ゴ ProN";
+    color: white;
+    margin-left: 20px;
+  }
+  
+  
   ul {
     list-style: none;
     width: 100%;
     font-weight: bold;
     display: flex;
     justify-content: flex-end;
+    flex-direction: column;
   }
 
   ul a:hover {
     color: #ffe608;
   }
 
-  ul li {
+  /* ul li {
     display: flex;
     align-items: center;
     padding: 5px;
     margin-right: 10px;
-  }
+  } */
   
   
 main {
@@ -97,4 +97,49 @@ main {
     color: #fff;
   }
   
-  
+#hamburg {
+  width: 140px;
+  justify-content: flex-end;
+  border: #fff;
+}
+
+#hamburg:hover {
+  color: #ffe608;
+}
+  /*inputタグのチェックボックス非表示*/
+
+#input{
+	display: none;
+  margin: 20px;
+  width: 35px;
+}
+
+
+
+/*3本線を作る*/
+
+.line1,.line2,.line3{
+	width: 50px;
+	height: 7px;
+  border-radius: 10%;
+	background-color: rgb(255, 255, 255);
+	margin: 7px;
+}
+
+
+
+/*メニューのデザイン*/
+
+#content{
+	background-color: #ee430077;
+	width: 100px;
+	height: 150%;
+	transform: translateX(5000px); /*左側の奥の奥に埋めておく*/
+}
+
+/*チェックが入ったら見せる*/
+
+#input:checked ~ #content{
+	transform: translatex(0px); /*通常値に戻す*/
+}
+

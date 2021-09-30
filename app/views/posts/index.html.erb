@@ -1,15 +1,11 @@
-<%= stylesheet_link_tag 'index', :media => "all" %>
+
+<link rel="stylesheet" media="all" type="text/css" href="index.css" />
 
 <div class="about-container">
 
 <div class="about-title">
 <br>
-<br>
-<br>
-<a> LET'S </a>
-<a>SHARE </a>
-<a>YOUR </a>
-<a>"Po笑er"!</a>
+<a> LET'S SHARE<br>YOUR<br>"POwww"</a>
 </div>
 
 <div class="intro">
@@ -17,25 +13,24 @@
 <br>
 <p>みんなの日常の中で生まれる、たくさんのチカラを持ったコトバ</p>
 <br>
-<p><h2>”Po笑er word”</h2></p>
+<p><h2>パワーワード</h2></p>
 
 <br>
 <p>思わずクスッと笑顔になるような、ちょっぴり勇気をくれるような。</p>
 
-<p>そんなコトバ達をこの <a>Po笑erwor.com</a> で</p>
+<p>そんなコトバ達をこの <a>POwww.com</a> で</p>
 
 <p>みんなとシェアしよう。</p>
 
 <br>
-<p>キミがもし、</p>
-<p>笑顔になれないとき、誰かから元気を分けて欲しいとき。</p>
+<p>何だか少し元気が出ないそんなとき。</p>
 <br>
-<p>この場所で、たくさんの <a>”Po笑er word"</a> がキミを待ってるよ。</p>
+<p>ここでたくさんの <a>”POwwwワード"</a> がキミを待ってるよ！</p>
 
 
 </div>
 </div>
- 
+
 
 <div class="posts-container">
 
@@ -48,11 +43,11 @@
 <%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
   <%= tag.label "CATEGORY" %>
   <%= select_tag :tag_id,
-                 options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
-                 {
-                   prompt: 'ALL',
-                   onchange: 'submit(this.form);'
-                 }
+              options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+                  {
+                    prompt: 'ALL',
+                    onchange: 'submit(this.form);'
+                  }
   %>
 <% end %>  
 <br>
@@ -60,34 +55,32 @@
 
 <% @posts.each do |t| %>
   <div class="post"> 
-  <div class="main-box"> 
-  <div class="left-container">
-  <a href="/users/<%= t.user.id %>"><%= image_tag t.user.image_url, size: "50x50" if t.user.image? %></a>
-  </div>
-    <div class="right-container">
-    <div class="username" >
-    <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><p><%= t.created_at.strftime('%Y/%m/%d') %></p>
+    <div class="main-box">  
+      <div class="left-container">
+        <a href="/users/<%= t.user.id %>"><%= image_tag t.user.image_url, size: "50x50" if t.user.image? %></a>
     </div>
-    <%= t.word %>
+      <div class="right-container">
+        <div class="username" >
+          <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><p><%= t.created_at.strftime('%Y/%m/%d') %></p>
+        </div>
+          <%= t.word %>
     <br>
-    <%= image_tag t.image_url, size: "250x200" if t.image? %>
 
 <div class="bottom-container">
     <% if user_signed_in? %>
-　     <% if current_user.already_liked?(t) %>
-        
- 　     <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+      <% if current_user.already_liked?(t) %>
+        <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
           <div class="icon">
             <i class="fas fa-grin-stars fa-lg"></i><%= t.likes.count %></div>
           <% end %>    
-     <% else %>
+      <% else %>
           <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
           <div class="icon">
           <i class="far fa-meh-blank fa-lg"></i><%= t.likes.count %></div>
           <% end %>         
-       <% end %>   
-   <% else %>
-   <%= link_to new_user_registration_path do %> 
+      <% end %>   
+    <% else %>
+        <%= link_to new_user_registration_path do %> 
         <div class="icon">
         <i class="fas fa-grin-stars fa-lg"></i><%= t.likes.count %></div>
         <% end %>
@@ -135,30 +128,30 @@
       <br>
       <%= image_tag t.image_url, size: "250x200" if t.image? %>
   
-   <div class="bottom-container">
+    <div class="bottom-container">
       <% if user_signed_in? %>
-  　     <% if current_user.already_liked?(t) %>
+        <% if current_user.already_liked?(t) %>
           
-   　     <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+        <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
             <div class="icon">
             <i class="fas fa-grin-stars fa-lg"></i><%= t.likes.count %></div>
             <% end %>    
-       <% else %>
+        <% else %>
             <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
             <div class="icon">
             <i class="far fa-meh-blank fa-lg"></i><%= t.likes.count %></div>
             <% end %>         
-         <% end %>   
-     <% else %>
+        <% end %>   
+      <% else %>
           <%= link_to new_user_registration_path do %> 
           <div class="icon">
           <i class="fas fa-grin-stars fa-lg"></i><%= t.likes.count %></div>
           <% end %>
           <% end %>
-       <%= link_to post_path(t.id) do %>
-         <div class="icon">
-         <i class="fas fa-info-circle fa-lg"></i></div>
-         <% end %>
+      <%= link_to post_path(t.id) do %>
+          <div class="icon">
+          <i class="fas fa-info-circle fa-lg"></i></div>
+          <% end %>
       <% if user_signed_in? && current_user.id == t.user_id %>
         <%= link_to edit_post_path(t.id) do %>
         <div class="icon">
