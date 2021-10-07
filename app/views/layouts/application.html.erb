@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
   </head>
 
   <body>
@@ -17,26 +20,19 @@
         <h1>POwww.com</h1>
       <p>日常のコトバに潜む、みんなのpowww。</p>
       <% end %>
-      
 
-      <div id="hamburg">
-      <input id="input" type="checkbox">
-      <label id="label1" for="input"><div class="line1"></div><div class="line2"></div><div class="line3"></div></label> 
-    <div id="content"> 
-      <ul class="list">
-        <li><a href="/posts/new">NEW POST</a></li>
-        </li>
-        <% if user_signed_in? %>
-          <li><%= link_to " MY PAGE", user_path(current_user.id) %></li>
-          <li><%= link_to "LOG OUT", destroy_user_session_path, method: :delete %></li>
-          </li>
-        <% else %>
-          <li><%= link_to "LOGIN", new_user_session_path %></li>
-          <li><%= link_to "アカウント作成", new_user_registration_path %></li>
-        <% end %> 
-      </ul>
-    </div>
-  </div>
+      <div class="openbtn">
+        <div class="openbtn-area">
+        <span><a href="/posts/new">NEW POST</a></span>
+              <% if user_signed_in? %>
+                <span><%= link_to " MY PAGE", user_path(current_user.id) %></span>
+                <span><%= link_to "LOG OUT", destroy_user_session_path, method: :delete %></span>
+              <% else %>
+                <span><%= link_to "LOGIN", new_user_session_path %></span>
+                <span><%= link_to "アカウント作成", new_user_registration_path %></span>
+              <% end %> 
+        </div>
+      </div>
 </header>
 
     <main>
@@ -47,9 +43,10 @@
 
     <footer>
     <small>© 2021 Koharu Okada</small>
- </footer>
+</footer>
 
-
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="application.js"></script>
   </body>
 
 

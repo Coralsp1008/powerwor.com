@@ -62,6 +62,7 @@ gem 'carrierwave' , '~> 1.3' ,  '>= 1.3.1'
 gem 'cloudinary'
 gem 'dotenv-rails'
 gem 'rmagick'
+gem "jquery-rails"
 
 group :production do
   gem 'pg'
